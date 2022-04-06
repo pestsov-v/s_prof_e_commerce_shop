@@ -1,0 +1,30 @@
+{
+  "name": "s_prof_e_commerce_shop",
+  "version": "1.0.0",
+  "description": "E-commerce shop to kitchen food machines",
+  "main": "init.js",
+  "scripts": {
+    "dev:server": "nodemon init.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AveselsJS/s_prof_e_commerce_shop.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "postgresql"
+  ],
+  "author": "Vladislav Pestsov <vladislav.pestsov@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AveselsJS/s_prof_e_commerce_shop/issues"
+  },
+  "homepage": "https://github.com/AveselsJS/s_prof_e_commerce_shop#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10",
+    "nodemon": "^2.0.15"
+  }
+}
