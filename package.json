@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/AveselsJS/s_prof_e_commerce_shop#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.10",
     "nodemon": "^2.0.15"
   }

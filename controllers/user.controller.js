@@ -1,8 +1,8 @@
 const CRUD = require("../controllers/crud.controller");
 const User = require("../models/User.model");
 
-exports.getUsersAll = CRUD.getAll(User);
-exports.getUserOne = CRUD.getOne(User);
-exports.createUserOne = CRUD.createOne(User);
-exports.updateUserOne = CRUD.updateOne(User);
-exports.deleteUserOne = CRUD.deleteOne(User);
+exports.getUsers = CRUD.getAll(User);
+exports.getUser = CRUD.getOne(User);
+exports.createUser = CRUD.createOne(User);
+exports.updateUser = CRUD.updateOne(User);
+exports.deleteUser = CRUD.deleteOne(User);

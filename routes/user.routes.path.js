@@ -1,9 +1,9 @@
-const ALL_USERS = "/user";
-const ONE_USER = "/user/:id";
+const USERS = "/user";
+const USER = "/user/:id";
 
 const userPath = {
-  users: ALL_USERS,
-  user: ONE_USER,
+  users: USERS,
+  user: USER,
 };
 
 module.exports = userPath;
