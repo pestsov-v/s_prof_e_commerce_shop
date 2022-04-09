@@ -1,7 +1,7 @@
 const User = require("../models/User.model");
 const createSendToken = require("../helpers/auth.helper");
 const {
-  handleDuplicateValue,
+  handleDuplicateEmail,
   handleEmptyFields,
 } = require("../helpers/error.helper.js");
 
@@ -11,7 +11,7 @@ exports.signup = async (req, res, next) => {
     createSendToken(newUser, 201, req, res);
   } catch (e) {
     if (e.code === 11000) {
-      return next(handleDuplicateValue());
+      return next(handleDuplicateEmail());
     }
 
     if (e.errors) {
