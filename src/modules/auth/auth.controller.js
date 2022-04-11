@@ -4,6 +4,7 @@ const {
   handleDuplicateEmail,
   handleEmptyFields,
 } = require("../error/error.helper");
+const ExceptionFilter = require("../../core/ExceptionFilter");
 
 const signToken = (id) => {
   return (token = jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -47,4 +48,17 @@ exports.signup = async (req, res, next) => {
       return next(handleEmptyFields(e));
     }
   }
+};
+
+exports.login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return next(new ExceptionFilter("Пожалуйста заполните все поля", 400));
+  }
+
+  const user = await User.findOne({ email }).select("+password");
+  const correct = await user.correctPassword(password, user.password);
+
+  createSendToken(user, 200, req, res);
 };
