@@ -1,5 +1,12 @@
+const crypto = require("crypto");
+
 const User = require("../user/User.model");
-const { findUserService, findEmailService } = require("./auth.service");
+const {
+  findUserService,
+  findEmailService,
+  resetPasswordService,
+  saveNewPasswordService,
+} = require("./auth.service");
 const {
   createSendToken,
   authNotFound,
@@ -7,17 +14,18 @@ const {
   confirmPassword,
   handleDuplicateEmail,
   handleEmptyFields,
+  handleHashedToken,
 } = require("./auth.helper");
 
 const ExceptionFilter = require("../../core/filter/ExceptionFilter");
-const { sendError } = require("./auth.exception");
+const { sendError, notUser, badToken } = require("./auth.exception");
 const Email = require("../../core/email/Email");
 
 exports.signup = async (req, res, next) => {
   try {
     const newUser = await User.create(req.body);
 
-    const url = `${req.protocol}://${req.get("host")}/api/v1/user`;
+    const url = `${req.protocol}://${req.get("host")}/api/v1/login`;
     await new Email(newUser, url).sendWelcome();
 
     createSendToken(newUser, 201, req, res);
@@ -72,7 +80,10 @@ exports.forgotPassword = async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   try {
-    `${req.protocol}://${req.get("host")}/api/v1/password/${resetToken}`;
+    const resetUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/api/v1/password/${resetToken}`;
+    await new Email(user, resetUrl).sendPasswordReset();
 
     res.status(200).json({
       status: "success",
@@ -85,4 +96,15 @@ exports.forgotPassword = async (req, res, next) => {
 
     return next(new ExceptionFilter(sendError.message, sendError.statusCode));
   }
+};
+
+exports.resetPassword = async (req, res, next) => {
+  const { password, passwordConfirm } = req.body;
+  const user = await resetPasswordService(req.params.token);
+
+  if (!user) {
+    return next(new ExceptionFilter(badToken.message, badToken.statusCode));
+  }
+  await saveNewPasswordService(user, password, passwordConfirm);
+  createSendToken(user, 200, req, res);
 };

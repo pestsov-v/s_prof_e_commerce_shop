@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 const ExceptionFilter = require("../../core/filter/ExceptionFilter");
 const {
@@ -38,6 +39,10 @@ exports.createSendToken = (user, statusCode, req, res) => {
       user,
     },
   });
+};
+
+exports.handleHashedToken = (token) => {
+  return crypto.createHash("sha256").update(token).digest("hex");
 };
 
 exports.handleDuplicateEmail = () => {

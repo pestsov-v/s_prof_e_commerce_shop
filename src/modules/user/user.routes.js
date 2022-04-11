@@ -6,14 +6,13 @@ const userPath = require("./user.routes.path");
 
 const userRouter = express.Router();
 
-userRouter.use(protect);
-userRouter.get(userPath.users, userController.getUsers);
-userRouter.get(userPath.user, userController.getUser);
-userRouter.patch(userPath.user, userController.updateUser);
-userRouter.delete(userPath.user, userController.deleteUser);
+userRouter.get(userPath.users, protect, userController.getUsers);
+userRouter.get(userPath.user, protect, userController.getUser);
+userRouter.patch(userPath.user, protect, userController.updateUser);
+userRouter.delete(userPath.user, protect, userController.deleteUser);
 
 userRouter.use(restrictTo("admin"));
-userRouter.patch(userPath.deactivated, userController.deactivatedUser);
-userRouter.patch(userPath.reactivated, userController.reactivatedUser);
+userRouter.patch(userPath.deactivated, protect, userController.deactivatedUser);
+userRouter.patch(userPath.reactivated, protect, userController.reactivatedUser);
 
 module.exports = userRouter;

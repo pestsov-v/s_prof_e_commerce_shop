@@ -24,6 +24,7 @@
   "homepage": "https://github.com/AveselsJS/s_prof_e_commerce_shop#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "html-to-text": "^8.2.0",
