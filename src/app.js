@@ -1,8 +1,8 @@
 const express = require("express");
-const errorMiddleware = require("./middleware/error.middleware");
-const userRouter = require("./routes/user.routes");
-const categoryRouter = require("./routes/category.routes");
-const authRouter = require("./routes/auth.routes");
+const errorMiddleware = require("./modules/error/error.middleware");
+const userRouter = require("./modules/user/user.routes");
+const categoryRouter = require("./modules/category/category.routes");
+const authRouter = require("./modules/auth/auth.routes");
 
 const app = express();
 app.use(express.json());

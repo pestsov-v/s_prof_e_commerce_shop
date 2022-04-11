@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -36,6 +37,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Пожалуйста повторите Ваш пароль"],
     minlength: 8,
+    validate: {
+      validator: function (el) {
+        return el === this.password;
+      },
+      message: "Пароли не совпадают",
+    },
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
@@ -50,7 +57,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
-  this.password = await bcrypt.hash(this.password, 16);
+  this.password = await bcrypt.hash(this.password, 10);
 
   this.passwordConfirm = undefined;
   next();

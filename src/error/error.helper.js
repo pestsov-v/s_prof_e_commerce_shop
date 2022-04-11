@@ -1,6 +1,6 @@
-const ExceptionFilter = require("../exception/ExceptionFilter");
-const { dublicateEmail, emptyFields } = require("../exception/error.exception");
-const notFound = require("../exception/crud.exception");
+const ExceptionFilter = require("../core/ExceptionFilter");
+const { dublicateEmail, emptyFields } = require("./error.exceptions");
+const notFound = require("../../core/crud/crud.exception");
 
 const handleDuplicateEmail = () => {
   return new ExceptionFilter(dublicateEmail.message, dublicateEmail.statusCode);

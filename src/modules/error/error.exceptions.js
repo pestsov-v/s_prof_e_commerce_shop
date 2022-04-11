@@ -4,7 +4,6 @@ const dublicateEmail = {
 };
 
 const emptyFields = {
-  message: "Пожалуйста заполните все поля",
   statusCode: 400,
 };
 
