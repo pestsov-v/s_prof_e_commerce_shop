@@ -11,10 +11,15 @@ const {
 
 const ExceptionFilter = require("../../core/filter/ExceptionFilter");
 const { sendError } = require("./auth.exception");
+const Email = require("../../core/email/Email");
 
 exports.signup = async (req, res, next) => {
   try {
     const newUser = await User.create(req.body);
+
+    const url = `${req.protocol}://${req.get("host")}/api/v1/user`;
+    await new Email(newUser, url).sendWelcome();
+
     createSendToken(newUser, 201, req, res);
   } catch (e) {
     console.log(e);

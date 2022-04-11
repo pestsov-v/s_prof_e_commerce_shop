@@ -1,0 +1,15 @@
+extends baseEmail
+
+block content
+    p Привет #{firstName},
+    p Добро пожаловать в S-Prof. Мы рады видеть Вас 🎉🙏
+    p Мы все здесь большая семья, поэтому обязательно загрузите свою пользовательскую фотографию, чтобы мы узнали вас немного лучше!
+        table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+            tbody
+                tr
+                    td(align='left')
+                        table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                            tbody
+                                tr
+                                    td
+                                        a(href=`${url}`, target='_blank') Загрузить фото

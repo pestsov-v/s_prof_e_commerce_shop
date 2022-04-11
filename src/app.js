@@ -1,10 +1,15 @@
 const express = require("express");
+const path = require("path");
+
 const errorMiddleware = require("./core/error/error.middleware");
 const userRouter = require("./modules/user/user.routes");
 const categoryRouter = require("./modules/category/category.routes");
 const authRouter = require("./modules/auth/auth.routes");
 
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 app.use(express.json());
 const API_PATH = "/api/v1";
 
