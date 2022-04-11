@@ -1,4 +1,4 @@
-const { handleNotFound } = require("../../modules/error/error.helper");
+const { handleNotFound } = require("../error/error.middleware");
 
 exports.getAll = (Model) => async (req, res) => {
   const documents = await Model.find();

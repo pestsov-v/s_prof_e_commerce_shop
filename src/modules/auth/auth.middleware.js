@@ -1,8 +1,13 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 
-const ExceptionFilter = require("../../core/ExceptionFilter");
-const { loggedAgain, incorrectToken, notLoggin } = require("./auth.exception");
+const ExceptionFilter = require("../../core/filter/ExceptionFilter");
+const {
+  loggedAgain,
+  incorrectToken,
+  notLoggin,
+  hasNotRule,
+} = require("./auth.exception");
 const { changedPasswordAfter } = require("./auth.helper");
 const User = require("../user/User.model");
 
@@ -36,4 +41,17 @@ exports.protect = async (req, res, next) => {
   req.user = currentUser;
   res.locals.user = currentUser;
   next();
+};
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    console.log(req.user);
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ExceptionFilter(hasNotRule.message, hasNotRule.statusCode)
+      );
+    }
+
+    next();
+  };
 };

@@ -1,5 +1,5 @@
 const express = require("express");
-const { protect } = require("../auth/auth.middleware");
+const { protect, restrictTo } = require("../auth/auth.middleware");
 
 const userController = require("./user.controller");
 const userPath = require("./user.routes.path");
@@ -11,6 +11,8 @@ userRouter.get(userPath.users, userController.getUsers);
 userRouter.get(userPath.user, userController.getUser);
 userRouter.patch(userPath.user, userController.updateUser);
 userRouter.delete(userPath.user, userController.deleteUser);
+
+userRouter.use(restrictTo("admin"));
 userRouter.patch(userPath.deactivated, userController.deactivatedUser);
 userRouter.patch(userPath.reactivated, userController.reactivatedUser);
 

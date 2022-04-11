@@ -1,4 +1,4 @@
-const ExceptionFilter = require("../../core/ExceptionFilter");
+const ExceptionFilter = require("../../core/filter/ExceptionFilter");
 const { notFound } = require("./user.excection");
 
 exports.userNotFound = () => {

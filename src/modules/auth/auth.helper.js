@@ -1,8 +1,12 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const ExceptionFilter = require("../../core/ExceptionFilter");
-const { emptyFields, incorrectPassword } = require("./auth.exception");
+const ExceptionFilter = require("../../core/filter/ExceptionFilter");
+const {
+  emptyFields,
+  incorrectPassword,
+  dublicateEmail,
+} = require("./auth.exception");
 
 exports.confirmPassword = async function (candidatePassword, userPassword) {
   return await bcrypt.compare(candidatePassword, userPassword);
@@ -36,16 +40,15 @@ exports.createSendToken = (user, statusCode, req, res) => {
   });
 };
 
-exports.changedPasswordAfter = function (JWTTimestamp) {
-  if (this.passwordChangedAt) {
-    const changedTimestamp = parseInt(
-      this.passwordChangedAt.getTime() / 1000,
-      10
-    );
-    return JWTTimestamp < changedTimestamp;
-  }
+exports.handleDuplicateEmail = () => {
+  return new ExceptionFilter(dublicateEmail.message, dublicateEmail.statusCode);
+};
 
-  return false;
+exports.handleEmptyFields = (err) => {
+  const errors = Object.values(err.errors).map((el) => el.message);
+  const message = `Заполнены не все обязательные поля. ${errors.join(". ")}`;
+
+  return new ExceptionFilter(message, 400);
 };
 
 exports.authNotFound = () => {
