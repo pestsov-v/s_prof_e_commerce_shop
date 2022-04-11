@@ -1,38 +1,15 @@
 const User = require("../user/User.model");
-const jwt = require("jsonwebtoken");
+const {
+  createSendToken,
+  authNotFound,
+  authIncorrectPassword,
+  confirmPassword,
+} = require("./auth.helper");
 const {
   handleDuplicateEmail,
   handleEmptyFields,
 } = require("../error/error.helper");
-const ExceptionFilter = require("../../core/ExceptionFilter");
-
-const signToken = (id) => {
-  return (token = jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  }));
-};
-
-const createSendToken = (user, statusCode, req, res) => {
-  const token = signToken(user._id);
-
-  res.cookie("jwt", token, {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-    secure: req.headers["x-forwarded-proto"] === "https",
-  });
-
-  user.password = undefined;
-
-  return res.status(statusCode).json({
-    status: "success",
-    token,
-    data: {
-      user,
-    },
-  });
-};
+const { findUserService } = require("./auth.service");
 
 exports.signup = async (req, res, next) => {
   try {
@@ -52,13 +29,29 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
+  const user = await findUserService(email);
 
   if (!email || !password) {
-    return next(new ExceptionFilter("Пожалуйста заполните все поля", 400));
+    return next(authNotFound());
   }
 
-  const user = await User.findOne({ email }).select("+password");
-  const correct = await user.correctPassword(password, user.password);
+  const correctPassword = await confirmPassword(password, user.password);
+
+  if (correctPassword === false) {
+    return next(authIncorrectPassword());
+  }
 
   createSendToken(user, 200, req, res);
+};
+
+exports.logout = (req, res) => {
+  res.cookie("jwt", "loggedout", {
+    expires: new Date(Date.now() + 10 * 100),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "Пользователь успешно вышел",
+  });
 };
