@@ -1,15 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 
-const ExceptionFilter = require("../../core/filter/ExceptionFilter");
-const {
-  loggedAgain,
-  incorrectToken,
-  notLoggin,
-  hasNotRule,
-} = require("./auth.exception");
-const { changedPasswordAfter } = require("./auth.helper");
 const User = require("../user/User.model");
+const AuthError = require("./auth.filter");
 
 exports.protect = async (req, res, next) => {
   let token;
@@ -20,22 +13,18 @@ exports.protect = async (req, res, next) => {
     token = req.headers.authorization.split(" ")[1];
   }
   if (!token) {
-    return next(new ExceptionFilter(notLoggin.message, notLoggin.statusCode));
+    return next(AuthError.notLoggin());
   }
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
   const currentUser = await User.findById(decoded.id);
 
   if (!currentUser) {
-    return next(
-      new ExceptionFilter(incorrectToken.message, incorrectToken.statusCode)
-    );
+    return next(AuthError.incorrectPassword());
   }
 
   if (currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(
-      new ExceptionFilter(loggedAgain.message, loggedAgain.statusCode)
-    );
+    return next(AuthError.loggedAgain());
   }
 
   req.user = currentUser;
@@ -48,9 +37,7 @@ exports.restrictTo = (...roles) => {
     console.log(req.user);
     console.log(roles);
     if (!roles.includes(req.user.role)) {
-      return next(
-        new ExceptionFilter(hasNotRule.message, hasNotRule.statusCode)
-      );
+      return next(AuthError.hasNotRule());
     }
 
     next();

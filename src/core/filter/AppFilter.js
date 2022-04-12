@@ -1,4 +1,4 @@
-class ExceptionFilter extends Error {
+class AppError extends Error {
   constructor(message, statusCode) {
     super(message);
 
@@ -10,4 +10,4 @@ class ExceptionFilter extends Error {
   }
 }
 
-module.exports = ExceptionFilter;
+module.exports = AppError;

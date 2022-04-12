@@ -1,4 +1,4 @@
-const CRUD = require("../../core/crud/crud.controller.js");
+const CRUD = require("../../../core/crud/crud.controller.js");
 const Category = require("./Category.model");
 
 exports.getCategories = CRUD.getAll(Category);

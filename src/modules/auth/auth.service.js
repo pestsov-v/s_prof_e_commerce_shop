@@ -1,27 +1,36 @@
 const User = require("../user/User.model");
-const { handleHashedToken } = require("./auth.helper");
+const AuthHelper = require("./auth.helper");
 
-exports.findUserService = async (email) => {
-  return await User.findOne({ email }).select("+password");
-};
+class AuthService {
+  async createUser(body) {
+    return await User.create(body);
+  }
 
-exports.findEmailService = async (email) => {
-  return await User.findOne({ email });
-};
+  async findUser(email) {
+    return await User.findOne({ email }).select("+password");
+  }
 
-exports.resetPasswordService = async (token) => {
-  const hashedToken = handleHashedToken(token);
-  return await User.findOne({
-    passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
-  });
-};
+  async findEmail(email) {
+    return await User.findOne({ email });
+  }
 
-exports.saveNewPasswordService = async (user, password, passwordConfirm) => {
-  user.password = password;
-  user.passwordConfirm = passwordConfirm;
-  user.passwordResetToken = undefined;
-  user.passwordResetExpires = undefined;
+  async resetPassword(token) {
+    const hashedToken = AuthHelper.hashedToken(token);
 
-  return await user.save();
-};
+    return await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gt: Date.now() },
+    });
+  }
+
+  async changedPassword(user, password, passwordConfirm) {
+    user.password = password;
+    user.passwordConfirm = passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    return await user.save();
+  }
+}
+
+module.exports = new AuthService();
