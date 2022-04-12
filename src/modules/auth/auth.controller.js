@@ -13,32 +13,23 @@ class AuthController {
 
       AuthHelper.createSendToken(newUser, 201, req, res);
     } catch (e) {
-      console.log(e);
-      if (e.code === 11000) {
-        return next(AuthError.duplicateEmail());
-      }
-
-      if (e.errors) {
-        return next(AuthError.emptyFields(e));
-      }
+      if (e.code === 11000) return next(AuthError.duplicateEmail());
+      if (e.errors) return next(AuthError.emptyFields(e));
     }
   }
 
   async login(req, res, next) {
     const { email, password } = req.body;
     const user = await AuthService.findUser(email);
-    if (!email || !password) {
-      return next(AuthError.notFound());
-    }
+
+    if (!email || !password) return next(AuthError.notFound());
 
     const correctPassword = await AuthHelper.confirmPassword(
       password,
       user.password
     );
 
-    if (correctPassword === false) {
-      return next(AuthError.incorrectPassword());
-    }
+    if (correctPassword === false) return next(AuthError.incorrectPassword());
 
     AuthHelper.createSendToken(user, 200, req, res);
   }
@@ -57,9 +48,7 @@ class AuthController {
 
   async forgotPassword(req, res, next) {
     const user = await AuthService.findEmail(req.body.email);
-    if (!user) {
-      return next(AuthError.notUser);
-    }
+    if (!user) return next(AuthError.notUser);
 
     const resetToken = user.createPasswordResetToken();
     await user.save({ validateBeforeSave: false });
@@ -87,9 +76,7 @@ class AuthController {
     const { password, passwordConfirm } = req.body;
     const user = await AuthService.resetPassword(req.params.token);
 
-    if (!user) {
-      return next(AuthError.badToken());
-    }
+    if (!user) return next(AuthError.badToken());
 
     await AuthService.changedPassword(user, password, passwordConfirm);
     AuthHelper.createSendToken(user, 200, req, res);
