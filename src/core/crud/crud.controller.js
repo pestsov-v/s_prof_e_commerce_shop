@@ -1,7 +1,20 @@
-const { handleNotFound } = require("../error/error.middleware");
+const { handleNotFound } = require("../error/error.helper");
+const Features = require("../filter/Features");
 
 exports.getAll = (Model) => async (req, res) => {
-  const documents = await Model.find();
+  let filter = {};
+
+  if (req.params.product) {
+    filter = { product: req.params.product };
+  }
+
+  const features = new Features(Model.find(filter), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const documents = await features.query;
 
   res.status(200).json({
     status: "success",

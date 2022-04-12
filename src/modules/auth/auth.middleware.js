@@ -32,7 +32,7 @@ exports.protect = async (req, res, next) => {
     );
   }
 
-  if (changedPasswordAfter(decoded.iat)) {
+  if (currentUser.changedPasswordAfter(decoded.iat)) {
     return next(
       new ExceptionFilter(loggedAgain.message, loggedAgain.statusCode)
     );
@@ -45,6 +45,8 @@ exports.protect = async (req, res, next) => {
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
+    console.log(req.user);
+    console.log(roles);
     if (!roles.includes(req.user.role)) {
       return next(
         new ExceptionFilter(hasNotRule.message, hasNotRule.statusCode)

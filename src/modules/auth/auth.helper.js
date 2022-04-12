@@ -41,6 +41,18 @@ exports.createSendToken = (user, statusCode, req, res) => {
   });
 };
 
+exports.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
+
+  return false;
+};
+
 exports.handleHashedToken = (token) => {
   return crypto.createHash("sha256").update(token).digest("hex");
 };

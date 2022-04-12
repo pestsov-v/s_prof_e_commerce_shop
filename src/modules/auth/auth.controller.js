@@ -14,7 +14,6 @@ const {
   confirmPassword,
   handleDuplicateEmail,
   handleEmptyFields,
-  handleHashedToken,
 } = require("./auth.helper");
 
 const ExceptionFilter = require("../../core/filter/ExceptionFilter");
