@@ -36,7 +36,7 @@ class AuthController {
 
   logout(req, res) {
     res.cookie("jwt", "loggedout", {
-      expires: new Date(Date.now() + 10 * 100),
+      expires: new Date(Date.now() + 10 * 1000),
       httpOnly: true,
     });
 

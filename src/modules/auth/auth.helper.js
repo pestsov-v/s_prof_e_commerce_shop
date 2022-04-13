@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const { promisify } = require("util");
 
 const signToken = (id) => {
   return (token = jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -49,6 +50,16 @@ class AuthHelper {
     }
 
     return false;
+  }
+
+  authorizationToken(authorization) {
+    if (authorization && authorization.startsWith("Bearer")) {
+      return (token = authorization.split(" ")[1]);
+    }
+  }
+
+  async decoded(token) {
+    return await promisify(jwt.verify)(token, process.env.JWT_SECRET);
   }
 }
 
