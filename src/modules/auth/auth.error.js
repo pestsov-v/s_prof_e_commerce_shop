@@ -1,6 +1,6 @@
-const AppError = require("../../core/filter/AppFilter");
+const BaseError = require("../../core/base/base.error");
 
-class AuthError extends AppError {
+class AuthError extends BaseError {
   constructor(message, statusCode) {
     super(message, statusCode);
   }
@@ -8,51 +8,51 @@ class AuthError extends AppError {
   emptyFields(err) {
     const errors = Object.values(err.errors).map((el) => el.message);
     const message = `Заполнены не все обязательные поля. ${errors.join(". ")}`;
-    return new AppError(message, 400);
+    return new BaseError(message, 400);
   }
 
   notFound() {
-    return new AppError("Вы не указали почту или пароль", 400);
+    return new AuthError("Вы не указали почту или пароль", 400);
   }
 
   notLoggin() {
-    return new AppError(
+    return new AuthError(
       "Вы не залогинились! Пожалуйста ввойдите в вашу учётную запись",
       401
     );
   }
 
   loggedAgain() {
-    return new AppError(
+    return new AuthError(
       "Пользователь недавно изменил пароль. Пожалуйста ввойдите ещё раз",
       401
     );
   }
 
   incorrectPassword() {
-    return new AppError("Неверная почта или пароль", 403);
+    return new AuthError("Неверная почта или пароль", 403);
   }
 
   incorrectToken() {
-    return new AppError(
+    return new AuthError(
       "Токен, который Вам принадлежит, больше не существует",
       403
     );
   }
 
   badToken() {
-    return new AppError("Неверный токен или его срок годности истёк", 403);
+    return new AuthError("Неверный токен или его срок годности истёк", 403);
   }
 
   hasNotRule() {
-    return new AppError(
+    return new AuthError(
       "Вы не владеете достаточными правами для совершения подобных действий",
       403
     );
   }
 
   notUser() {
-    return new AppError(
+    return new AuthError(
       "Не существует пользователя с данным email адресом",
       404
     );
@@ -63,7 +63,7 @@ class AuthError extends AppError {
   }
 
   serverError() {
-    return new AppError(
+    return new AuthError(
       "При отправке сообщения произошла ошибка. Пожалуйста попробуйтe позже",
       500
     );

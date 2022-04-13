@@ -1,4 +1,4 @@
-class Features {
+class BaseHelper {
   constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;
@@ -50,4 +50,4 @@ class Features {
   }
 }
 
-module.exports = Features;
+module.exports = BaseHelper;

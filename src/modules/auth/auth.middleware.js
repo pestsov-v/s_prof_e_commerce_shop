@@ -1,4 +1,4 @@
-const AuthError = require("./auth.filter");
+const AuthError = require("./auth.error");
 const AuthHelper = require("./auth.helper");
 const AuthService = require("./auth.service");
 
