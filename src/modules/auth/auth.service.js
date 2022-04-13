@@ -31,6 +31,10 @@ class AuthService {
 
     return await user.save();
   }
+
+  async decodedCurrentUser(id) {
+    return User.findById(id);
+  }
 }
 
 module.exports = new AuthService();
