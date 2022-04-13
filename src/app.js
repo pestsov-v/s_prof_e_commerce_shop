@@ -3,7 +3,7 @@ const path = require("path");
 
 const errorMiddleware = require("./core/error/error.middleware");
 const userRouter = require("./modules/user/user.routes");
-const categoryRouter = require("./modules/catalog/category/category.routes");
+const categoryRouter = require("./modules/catalog/catalog/catalog.routes");
 const authRouter = require("./modules/auth/auth.routes");
 
 const dishwasherRouter = require("./modules/catalog/dishwasher/dishwasher.routes");

@@ -1,4 +1,4 @@
-class AppError extends Error {
+class BaseError extends Error {
   constructor(message, statusCode) {
     super(message);
 
@@ -8,6 +8,10 @@ class AppError extends Error {
 
     Error.captureStackTrace(this, this.constructor);
   }
+
+  static docNotFound() {
+    return new BaseError("Нет документa з данным ID", 404);
+  }
 }
 
-module.exports = AppError;
+module.exports = BaseError;

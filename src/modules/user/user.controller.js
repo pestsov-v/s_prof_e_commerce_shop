@@ -1,34 +1,34 @@
-const CRUD = require("../../core/crud/crud.controller");
-const { userNotFound } = require("./user.helper");
-const { message } = require("./user.excection");
+const UserHelper = require("./user.helper");
+const UserError = require("./user.error");
+const UserService = require("./user.service");
 const User = require("./User.model");
-const {
-  deactivatedUserService,
-  reactivatedUserService,
-  responseObj,
-} = require("./user.service");
+const BaseController = require("../../core/base/base.controller");
 
-exports.getUsers = CRUD.getAll(User);
-exports.getUser = CRUD.getOne(User);
-exports.updateUser = CRUD.updateOne(User);
-exports.deleteUser = CRUD.deleteOne(User);
+class UserController {
+  getUsers = BaseController.getAll(User);
+  getUser = BaseController.getOne(User);
+  updateUser = BaseController.updateOne(User);
+  deleteUser = BaseController.deleteOne(User);
 
-exports.deactivatedUser = async (req, res, next) => {
-  const user = await deactivatedUserService(req.params.id);
+  async deactivatedUser(req, res, next) {
+    const user = await UserService.deactivatedUser(req.params.id);
 
-  if (user === null) {
-    return next(userNotFound());
+    if (user === null) return next(UserError.notFoundUser());
+
+    const message = "Пользователь успешно деактивирован";
+
+    return UserHelper.responseObj(user, 200, message, res);
   }
 
-  return responseObj(user, 200, message.deactivated, res);
-};
+  async reactivatedUser(req, res, next) {
+    const user = await UserService.reactivatedUser(req.params.id);
 
-exports.reactivatedUser = async (req, res, next) => {
-  const user = await reactivatedUserService(req.params.id);
+    if (user === null) return next(UserError.notFoundUser());
 
-  if (user === null) {
-    return next(userNotFound());
+    const message = "Пользователь успешно восстановлен";
+
+    return UserHelper.responseObj(user, 200, message, res);
   }
+}
 
-  return responseObj(user, 200, message.reactivated, res);
-};
+module.exports = new UserController();

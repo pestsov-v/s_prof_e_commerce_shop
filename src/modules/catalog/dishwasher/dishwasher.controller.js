@@ -1,8 +1,12 @@
-const CRUD = require("../../../core/crud/crud.controller");
+const BaseController = require("../../../core/base/base.controller");
 const Dishwasher = require("./Dishwasher.model");
 
-exports.getDishwashers = CRUD.getAll(Dishwasher);
-exports.getDishwasher = CRUD.getOne(Dishwasher);
-exports.createDishwasher = CRUD.createOne(Dishwasher);
-exports.updateDishwasher = CRUD.updateOne(Dishwasher);
-exports.deleteDishwasher = CRUD.deleteOne(Dishwasher);
+class DishwasherController {
+  getDishwashers = BaseController.getAll(Dishwasher);
+  getDishwasher = BaseController.getOne(Dishwasher);
+  createDishwasher = BaseController.createOne(Dishwasher);
+  updateDishwasher = BaseController.updateOne(Dishwasher);
+  deleteDishwasher = BaseController.deleteOne(Dishwasher);
+}
+
+module.exports = new DishwasherController();
