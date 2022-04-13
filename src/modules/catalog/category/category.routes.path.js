@@ -1,5 +1,5 @@
-const CATEGORIES = "/catalog";
-const CATEGORY = "/catalog/:id";
+const CATEGORIES = "/category";
+const CATEGORY = "/category/:id";
 
 const categoryPath = {
   categories: CATEGORIES,
