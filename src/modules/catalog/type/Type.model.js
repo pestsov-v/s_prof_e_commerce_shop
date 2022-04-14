@@ -6,10 +6,6 @@ const typeShema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  products: {
-    type: [String],
-    default: null,
-  },
 });
 
 const Type = mongoose.model("Type", typeShema);
