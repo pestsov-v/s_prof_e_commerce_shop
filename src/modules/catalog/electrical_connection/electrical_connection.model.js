@@ -11,7 +11,6 @@ const electricalConnectionsShema = new mongoose.Schema({
   },
   power: {
     type: Number,
-    default: 0,
     required: true,
   },
 });
