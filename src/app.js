@@ -3,11 +3,10 @@ const express = require("express");
 const path = require("path");
 
 const errorMiddleware = require("./core/error/error.middleware");
-const userRouter = require("./modules/user/user.router");
-const authRouter = require("./modules/auth/auth.router");
+const userRouter = require("@modules/user/user.router");
+const authRouter = require("@modules/auth/auth.router");
 
-const categoryRouter = require("./modules/catalog/category/category.router");
-// const productRouter = require("./modules/catalog/product/product.router");
+const categoryRouter = require("@catalog/category/category.router");
 const productRouter = require("@catalog/product/product.router");
 
 const app = express();
