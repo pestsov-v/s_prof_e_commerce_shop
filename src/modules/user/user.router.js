@@ -2,7 +2,7 @@ const express = require("express");
 const AuthMiddleware = require("../auth/auth.middleware");
 
 const UserController = require("./user.controller");
-const userPath = require("./user.routes.path");
+const userPath = require("./user.router.path");
 
 const adminRules = AuthMiddleware.restrictTo("admin");
 

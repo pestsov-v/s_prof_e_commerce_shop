@@ -1,4 +1,4 @@
-const BaseHelper = require("./base.helpers");
+const BaseHelper = require("./base.helper");
 const BaseError = require("./base.error");
 const BaseService = require("./base.service");
 
