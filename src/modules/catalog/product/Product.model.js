@@ -66,6 +66,14 @@ const productShema = new mongoose.Schema({
   },
 });
 
+productShema.pre(/^find/, function (next) {
+  this.populate({
+    path: "manufacturer form type electrical_connections",
+  });
+
+  next();
+});
+
 const Product = mongoose.model("Product", productShema);
 
 module.exports = Product;

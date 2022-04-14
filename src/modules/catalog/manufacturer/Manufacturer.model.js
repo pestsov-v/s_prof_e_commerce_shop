@@ -10,6 +10,10 @@ const manufacturerShema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  products: {
+    type: [String],
+    default: null,
+  },
 });
 
 const Manufacturer = mongoose.model("Manufacturer", manufacturerShema);

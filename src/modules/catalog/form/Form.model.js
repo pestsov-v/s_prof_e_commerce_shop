@@ -6,6 +6,10 @@ const formShema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  products: {
+    type: [String],
+    default: null,
+  },
 });
 
 const Form = mongoose.model("Form", formShema);

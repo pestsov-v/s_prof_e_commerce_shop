@@ -31,12 +31,14 @@ class BaseController {
     };
   }
 
-  static getOne(Model) {
+  static getOne(Model, popOptions) {
     return async (req, res, next) => {
-      const document = await BaseService.getModel(Model, req.params.id);
+      let query = await BaseService.getModel(Model, req.params.id);
+
+      if (popOptions) query = query.populate(popOptions);
+      const document = await query;
 
       if (!document) return next(BaseError.docNotFound());
-
       res.json({
         status: "success",
         data: {

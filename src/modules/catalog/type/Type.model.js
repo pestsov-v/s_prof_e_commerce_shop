@@ -6,7 +6,7 @@ const typeShema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  product: {
+  products: {
     type: [String],
     default: null,
   },
