@@ -44,6 +44,11 @@
     "supertest": "^6.2.2"
   },
   "_moduleAliases": {
+    "@root": ".",
+    "@base": "src/core/base",
+    "@email": "src/core/email",
+    "@modules": "src/modules",
+    "@auth": "src/modules/auth",
     "@catalog": "src/modules/catalog/"
   }
 }
