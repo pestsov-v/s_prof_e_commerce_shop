@@ -1,0 +1,40 @@
+openapi: 3.0.1
+info:
+  title: Natours
+  description: Сервис для покупки туров
+  contact:
+    email: vladislav.pestsov@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000/api/v1
+
+paths:
+  /users/signup:
+    post:
+      summary: Регистрация нового пользователя
+      tags:
+        - authentification
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signupForm'
+        required: true
+      responses:
+        201:
+          description: Пользователь cоздан
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  token:
+                    type: string
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWQ0NDJkNTM4ZjliYTJiMDA2ZGVmNiIsImlhdCI6MTY0MjkzOTQ0MCwiZXhwIjoxNjUwNzE1NDQwfQ.WIIJipOGDO2omBcHmCjfj2LQpSr5ZubD6-2ecKOzzLU'
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/signup_responses__200'
