@@ -1,11 +1,16 @@
 require("module-alias/register");
+const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
-const path = require("path");
-const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const swagger = require("swagger-ui-express");
 const MongoStore = require("connect-mongo")(session);
+
+const documentation = require("./documentation/index");
+const sessionVariables = require("./core/session/session.variables");
+const sessionUser = require("./core/session/session.user");
 
 const errorMiddleware = require("./core/error/error.middleware");
 const userRouter = require("@modules/user/user.router");
@@ -19,14 +24,12 @@ const manufacturerRouter = require("@catalog/manufacturer/manufacturer.router");
 const formRouter = require("@catalog/form/form.router");
 const electricalConnectionRouter = require("@catalog/electrical_connection/electrical_connection.router");
 
-const varMiddleware = require("./variables");
-const userMiddleware = require("./user");
-
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.json());
 
 app.use(
   session({
@@ -38,13 +41,13 @@ app.use(
   })
 );
 
-app.use(varMiddleware);
-app.use(userMiddleware);
+app.use(sessionVariables);
+app.use(sessionUser);
 
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.json());
 const API_PATH = "/api/v1";
+const API_DOC_PATH = "/api/v1/documentation";
+
+app.use(API_DOC_PATH, swagger.serve, swagger.setup(documentation));
 
 app.use(API_PATH, authRouter);
 app.use(API_PATH, userRouter);
