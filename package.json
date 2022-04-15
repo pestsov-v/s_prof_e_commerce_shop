@@ -53,7 +53,9 @@
   "_moduleAliases": {
     "@root": ".",
     "@base": "src/core/base",
+    "@error": "src/core/error",
     "@email": "src/core/email",
+    "@session": "src/core/session",
     "@modules": "src/modules",
     "@auth": "src/modules/auth",
     "@catalog": "src/modules/catalog/"
