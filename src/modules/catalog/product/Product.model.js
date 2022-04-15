@@ -74,6 +74,15 @@ productShema.pre(/^find/, function (next) {
   next();
 });
 
+productShema.method("toClient", function () {
+  const product = this.toObject();
+
+  product.id = product._id;
+  delete product._id;
+
+  return product;
+});
+
 const Product = mongoose.model("Product", productShema);
 
 module.exports = Product;
