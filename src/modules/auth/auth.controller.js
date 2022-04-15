@@ -24,12 +24,19 @@ class AuthController {
 
     if (!email || !password) return next(AuthError.notFound());
 
-    const correctPassword = await AuthHelper.confirmPassword(
-      password,
-      user.password
-    );
+    if (user) {
+      const correctPassword = await AuthHelper.confirmPassword(
+        password,
+        user.password
+      );
 
-    if (correctPassword === false) return next(AuthError.incorrectPassword());
+      if (correctPassword) {
+        req.session.user = user;
+        req.session.isAuthenticated = true;
+      } else {
+        return next(AuthError.incorrectPassword());
+      }
+    }
 
     AuthHelper.createSendToken(user, 200, req, res);
   }
@@ -39,6 +46,8 @@ class AuthController {
       expires: new Date(Date.now() + 10 * 1000),
       httpOnly: true,
     });
+
+    req.session.destroy();
 
     res.status(200).json({
       status: "success",

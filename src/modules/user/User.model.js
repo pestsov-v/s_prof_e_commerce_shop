@@ -35,7 +35,6 @@ const userSchema = new mongoose.Schema({
   },
   passwordConfirm: {
     type: String,
-    required: [true, "Пожалуйста повторите Ваш пароль"],
     minlength: 8,
     validate: {
       validator: function (el) {
@@ -43,6 +42,19 @@ const userSchema = new mongoose.Schema({
       },
       message: "Пароли не совпадают",
     },
+  },
+  basket: {
+    items: [
+      {
+        count: {
+          type: Number,
+        },
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+      },
+    ],
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
