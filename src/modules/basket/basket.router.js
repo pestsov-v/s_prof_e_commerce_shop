@@ -30,4 +30,14 @@ basketRouter.delete("/basket/:id", async (req, res) => {
   res.status(200).json(basket);
 });
 
+basketRouter.get("/basket", async (req, res) => {
+  const user = await User.findById(req.session.user._id);
+  const newUser = await user.populate("basket.items.productId");
+
+  const basket = mapCartItems(newUser.basket);
+  res.status(200).json({
+    basket,
+    price: computePrice(basket),
+  });
+});
 module.exports = basketRouter;
