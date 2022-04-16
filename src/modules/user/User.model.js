@@ -100,5 +100,10 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
+userSchema.methods.clearBasket = function () {
+  this.basket = { items: [] };
+  return this.save();
+};
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;

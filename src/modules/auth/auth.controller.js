@@ -29,6 +29,7 @@ class AuthController {
         password,
         user.password
       );
+      console.log(user);
 
       if (correctPassword) {
         req.session.user = user;
