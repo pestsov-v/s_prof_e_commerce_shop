@@ -15,6 +15,7 @@ const errorMiddleware = require("./core/error/error.middleware");
 const userRouter = require("./modules/user/user.router");
 const authRouter = require("./modules/auth/auth.router");
 const basketRouter = require("./modules/basket/basket.router");
+const orderRouter = require("./modules/order/order.router");
 
 const categoryRouter = require("./modules/catalog/category/category.router");
 const productRouter = require("./modules/catalog/product/product.router");
@@ -53,6 +54,7 @@ app.use(API_DOC_PATH, swagger.serve, swagger.setup(documentation));
 app.use(API_PATH, authRouter);
 app.use(API_PATH, userRouter);
 app.use(API_PATH, basketRouter);
+app.use(API_PATH, orderRouter);
 
 app.use(API_PATH, categoryRouter);
 app.use(API_PATH, productRouter);
