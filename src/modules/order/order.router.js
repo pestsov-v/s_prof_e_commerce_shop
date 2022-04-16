@@ -1,5 +1,4 @@
 const express = require("express");
-const { computePrice } = require("../basket/basket.helper");
 const User = require("../user/User.model");
 const OrderController = require("./order.controller");
 const Order = require("./Order.model");
@@ -8,7 +7,27 @@ const orderRouter = express.Router();
 
 // add CRUD order
 
-orderRouter.get(orderPath.orders, (req, res) => {});
+orderRouter.get(orderPath.orders, async (req, res) => {
+  const orders = await Order.find({ "user.userId": req.user._id }).populate(
+    "user.userId"
+  );
+
+  const order = orders.map((o) => {
+    return {
+      ...o._doc,
+      price: o.products.reduce((total, p) => {
+        return (total += p.count * p.product.price);
+      }, 0),
+    };
+  });
+
+  res.status(200).json({
+    status: "message",
+    data: {
+      order: order,
+    },
+  });
+});
 
 orderRouter.post(orderPath.orders, async (req, res) => {
   const user = await User.findById(req.session.user._id).populate(
