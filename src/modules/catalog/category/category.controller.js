@@ -1,5 +1,5 @@
+const BaseController = require("../../../core/base/base.controller");
 const Catalog = require("./Category.model");
-const BaseController = require("@base/base.controller");
 
 class CategoryController {
   getCategories = BaseController.getAll(Catalog);

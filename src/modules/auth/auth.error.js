@@ -1,4 +1,4 @@
-const BaseError = require("@base/base.error");
+const BaseError = require("../../core/base/base.error");
 
 class AuthError extends BaseError {
   constructor(message, statusCode) {

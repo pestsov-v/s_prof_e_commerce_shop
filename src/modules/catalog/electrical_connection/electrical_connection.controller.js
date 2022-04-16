@@ -1,5 +1,5 @@
+const BaseController = require("../../../core/base/base.controller");
 const ElectricalConnections = require("./electrical_connection.model");
-const BaseController = require("@base/base.controller");
 
 class ElectricalConnectionController {
   getElectricalConnections = BaseController.getAll(ElectricalConnections);

@@ -2,7 +2,7 @@ const UserHelper = require("./user.helper");
 const UserError = require("./user.error");
 const UserService = require("./user.service");
 const User = require("./User.model");
-const BaseController = require("@base/base.controller");
+const BaseController = require("../../core/base/base.controller");
 
 class UserController {
   getUsers = BaseController.getAll(User);

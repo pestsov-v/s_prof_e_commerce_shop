@@ -1,4 +1,4 @@
-const Email = require("@email/Email.js");
+const Email = require("../../core/email/Email");
 const AuthError = require("./auth.error");
 const AuthService = require("./auth.service");
 const AuthHelper = require("./auth.helper");

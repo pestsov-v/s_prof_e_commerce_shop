@@ -1,5 +1,5 @@
+const BaseController = require("../../../core/base/base.controller");
 const Form = require("./Form.model");
-const BaseController = require("@base/base.controller");
 
 class FormController {
   getForms = BaseController.getAll(Form);

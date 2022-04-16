@@ -1,4 +1,3 @@
-require("module-alias/register");
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -9,20 +8,20 @@ const MongoStore = require("connect-mongo")(session);
 const swagger = require("swagger-ui-express");
 
 const documentation = require("./documentation/index");
-const sessionVariables = require("@session/session.variables");
-const sessionUser = require("@session/session.user");
+const sessionVariables = require("./core/session/session.variables");
+const sessionUser = require("./core/session/session.user");
 
-const errorMiddleware = require("@error/error.middleware");
-const userRouter = require("@modules/user/user.router");
-const authRouter = require("@modules/auth/auth.router");
-const basketRouter = require("@modules/basket/basket.router");
+const errorMiddleware = require("./core/error/error.middleware");
+const userRouter = require("./modules/user/user.router");
+const authRouter = require("./modules/auth/auth.router");
+const basketRouter = require("./modules/basket/basket.router");
 
-const categoryRouter = require("@catalog/category/category.router");
-const productRouter = require("@catalog/product/product.router");
-const typeRouter = require("@catalog/type/type.router");
-const manufacturerRouter = require("@catalog/manufacturer/manufacturer.router");
-const formRouter = require("@catalog/form/form.router");
-const electricalConnectionRouter = require("@catalog/electrical_connection/electrical_connection.router");
+const categoryRouter = require("./modules/catalog/category/category.router");
+const productRouter = require("./modules/catalog/product/product.router");
+const typeRouter = require("./modules/catalog/type/type.router");
+const manufacturerRouter = require("./modules/catalog/manufacturer/manufacturer.router");
+const formRouter = require("./modules/catalog/form/form.router");
+const electricalConnectionRouter = require("./modules/catalog/electrical_connection/electrical_connection.router");
 
 const app = express();
 

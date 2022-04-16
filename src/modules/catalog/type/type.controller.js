@@ -1,5 +1,5 @@
+const BaseController = require("../../../core/base/base.controller");
 const Type = require("./Type.model");
-const BaseController = require("@base/base.controller");
 
 class TypeController {
   getTypes = BaseController.getAll(Type);

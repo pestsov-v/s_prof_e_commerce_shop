@@ -1,6 +1,5 @@
 const User = require("./User.model");
-
-const BaseService = require("@base/base.service");
+const BaseService = require("../../core/base/base.service");
 
 class UserService extends BaseService {
   async deactivatedUser(id) {

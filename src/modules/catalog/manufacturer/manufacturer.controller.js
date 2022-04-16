@@ -1,5 +1,5 @@
+const BaseController = require("../../../core/base/base.controller");
 const Manufacturer = require("./Manufacturer.model");
-const BaseController = require("@base/base.controller");
 
 class ManufacturerController {
   getManufacturers = BaseController.getAll(Manufacturer);
