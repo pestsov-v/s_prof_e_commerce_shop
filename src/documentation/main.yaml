@@ -26,7 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                properties:
+                properties: 
                   status:
                     type: string
                     example: 'success'
@@ -37,4 +37,5 @@ paths:
                     type: object
                     properties:
                       user:
-                        $ref: '#/components/schemas/signup_responses__200'
+                        $ref: "../resourses"
+        

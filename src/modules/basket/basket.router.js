@@ -4,6 +4,7 @@ const BasketController = require("./Basket.controller");
 const basketRouter = express.Router();
 
 basketRouter.get(basketPath.baskets, BasketController.getBasket);
+basketRouter.get(basketPath.baskets, BasketController.getBasket);
 basketRouter.post(basketPath.basket, BasketController.addToBasket);
 basketRouter.delete(basketPath.basket, BasketController.removeFromBasket);
 

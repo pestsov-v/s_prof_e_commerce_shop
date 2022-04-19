@@ -2,6 +2,7 @@ const BaseController = require("../../core/base/base.controller");
 const Order = require("./Order.model");
 const OrderHelper = require("./order.helper");
 const OrderService = require("./order.service");
+const User = require("../user/User.model");
 
 class OrderController {
   getOrder = BaseController.getOne(Order);

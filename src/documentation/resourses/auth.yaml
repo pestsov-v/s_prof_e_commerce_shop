@@ -1,0 +1,22 @@
+signup_responses__200:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Vladislav Pestsov
+        email:
+          type: string
+          example: vladislav.pestsov@gmail.com
+        photo:
+          type: string
+          example: default.jpg
+        role:
+          type: string
+          example: user
+        active:
+          type: boolean
+          example: true
+        _id:
+          type: string
+          example: 61ed442d538f9ba2b006def6
+        

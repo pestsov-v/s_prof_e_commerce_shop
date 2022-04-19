@@ -23,6 +23,8 @@ const typeRouter = require("./modules/catalog/type/type.router");
 const manufacturerRouter = require("./modules/catalog/manufacturer/manufacturer.router");
 const formRouter = require("./modules/catalog/form/form.router");
 const electricalConnectionRouter = require("./modules/catalog/electrical_connection/electrical_connection.router");
+const blogCategoryRouter = require("./modules/blog/blogCategory/BlogCategory.routes");
+const articleRouter = require("./modules/blog/article/article.router");
 
 const app = express();
 
@@ -62,6 +64,8 @@ app.use(API_PATH, typeRouter);
 app.use(API_PATH, manufacturerRouter);
 app.use(API_PATH, formRouter);
 app.use(API_PATH, electricalConnectionRouter);
+app.use(API_PATH, blogCategoryRouter);
+app.use(API_PATH, articleRouter);
 
 app.use(errorMiddleware);
 
