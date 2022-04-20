@@ -40,7 +40,7 @@ exports.notUserException = {
 };
 
 exports.duplicateEmailException = {
-  message: "Пользователь с данным Email уже существуетм",
+  message: "Пользователь с данным Email уже существует",
   statusCode: 409,
 };
 
