@@ -1,4 +1,8 @@
 const BaseError = require("../../core/base/base.error");
+const {
+  notFoundException,
+  incorrectPasswordException,
+} = require("./auth.exception");
 
 class AuthError extends BaseError {
   constructor(message, statusCode) {
@@ -12,7 +16,10 @@ class AuthError extends BaseError {
   }
 
   notFound() {
-    return new AuthError("Вы не указали почту или пароль", 400);
+    return new AuthError(
+      notFoundException.message,
+      notFoundException.statusCode
+    );
   }
 
   notLoggin() {
@@ -30,7 +37,10 @@ class AuthError extends BaseError {
   }
 
   incorrectPassword() {
-    return new AuthError("Неверная почта или пароль", 403);
+    return new AuthError(
+      incorrectPasswordException.message,
+      incorrectPasswordException.statusCode
+    );
   }
 
   incorrectToken() {

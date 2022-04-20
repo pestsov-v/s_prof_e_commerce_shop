@@ -4,8 +4,8 @@
   "description": "E-commerce shop to kitchen food machines",
   "main": "init.js",
   "scripts": {
-    "dev:server": "nodemon ./src/init.js",
-    "jest:test": "jest --watch"
+    "dev:server": "env-cmd -f ./config/test.env nodemon ./src/init.js",
+    "jest:test": "env-cmd -f ./config/test.env jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/AveselsJS/s_prof_e_commerce_shop#readme",
   "dependencies": {
+    "@shelf/jest-mongodb": "^2.2.1",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "connect-mongo": "^3.2.0",
@@ -30,6 +31,7 @@
     "crypto": "^1.0.1",
     "csurf": "^1.11.0",
     "dotenv": "^16.0.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "html-to-text": "^8.2.0",
@@ -48,16 +50,7 @@
   "devDependencies": {
     "jest": "^27.5.1",
     "jest-watch-typeahead": "^1.0.0",
+    "node-mocks-http": "^1.11.0",
     "supertest": "^6.2.2"
-  },
-  "_moduleAliases": {
-    "@root": ".",
-    "@base": "src/core/base",
-    "@error": "src/core/error",
-    "@email": "src/core/email",
-    "@session": "src/core/session",
-    "@modules": "src/modules",
-    "@auth": "src/modules/auth",
-    "@catalog": "src/modules/catalog/"
   }
 }

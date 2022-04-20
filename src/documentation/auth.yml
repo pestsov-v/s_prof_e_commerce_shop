@@ -1,0 +1,170 @@
+openapi: 3.0.1
+info:
+  title: S-Prof
+  description: Интернет магазин промышленного кухонного оборудования
+  contact:
+    email: vladislav.pestsov@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000/api/v1
+
+paths:
+  /user/signup:
+    post:
+      summary: Регистрация нового пользователя
+      tags:
+        - authentification
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signup_form'
+        required: true
+      responses:
+        201:
+          description: Пользователь cоздан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signup_201'
+        
+        400: 
+          description: Заполнены не все поля
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/empty_fields_400'        
+                
+        409: 
+          description: Пользователь с данным Email уже существует
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/dublicate_email_409'
+
+components: 
+  schemas:
+  
+    signup_form:
+      type: object
+      properties:
+        firstName: 
+          type: string
+          example: Vladislav
+        surnameName: 
+          type: string
+          example: Vadimovich
+        lastName: 
+          type: string
+          example: Pestsov
+        email:
+          type: string
+          example: vladislav.pestsov@gmail.com
+        password: 
+          type: string
+          minLength: 8
+          example: 12345678
+        passwordConfirm: 
+          type: string
+          minLength: 8
+          example: 12345678
+          
+    signup_201:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        token: 
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmNzJjOTYyZjFhNDBiYzllMjc0MiIsImlhdCI6MTY1MDM5MDgyOSwiZXhwIjoxNjU4MTY2ODI5fQ.rMXPS_9s7_euQ6i8LJ_w0ptxUEYffZvDsh2a5n9LNdk
+        data:
+          type: object
+          properties:
+            user:
+              type: object
+              properties:
+                firstName: 
+                  type: string
+                  example: Vladislav
+                surnameName: 
+                  type: string
+                  example: Vadimovich
+                lastName: 
+                  type: string
+                  example: Pestsov
+                email:
+                  type: string
+                  example: vladislav.pestsov@gmail.com
+                photo:
+                  type: string
+                  example: "default.jpg"
+                role:
+                  type: string
+                  example: "client"
+                baslet:
+                  type: object
+                  properties:
+                    items:
+                      type: array
+                      example: []
+                active:
+                  type: string
+                  example: true
+                _id:
+                  type: string
+                  example: 625ef72c962f1a40bc9e2742
+    
+    empty_fields_400:
+      type: object
+      properties:
+        status: 
+          type: string
+          example: fail
+        error:
+          type: object
+          properties:
+            statusCode: 
+              type: integer
+              example: 400
+            status: 
+              type: string
+              example: fail
+            isOperational: 
+              type: boolean
+              example: true
+        message:
+          type: string
+          example: Заполнены не все обязательные поля. Пожалуйста введите Ваш email
+        stack:
+          type: array
+          items:
+            type: string
+            example: Error Заполнены не все обязательные поля. Пожалуйста введите Ваш email,...
+    
+    dublicate_email_409:
+      type: object
+      properties:
+        status: 
+          type: string
+          example: fail
+        error:
+          type: object
+          properties:
+            statusCode: 
+              type: integer
+              example: 409
+            status: 
+              type: string
+              example: fail
+            isOperational: 
+              type: boolean
+              example: true
+        message:
+          type: string
+          example: Пользователь с данным Email уже существует
+        stack:
+          type: array
+          items:
+            type: string
+            example: Error Пользователь с данным Email уже существует,...

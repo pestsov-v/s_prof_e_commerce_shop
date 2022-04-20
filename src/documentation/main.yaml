@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Natours
-  description: Сервис для покупки туров
+  title: S-Prof
+  description: Интернет магазин промышленного кухонного оборудования
   contact:
     email: vladislav.pestsov@gmail.com
   version: 1.0.0
@@ -9,7 +9,7 @@ servers:
   - url: http://localhost:4000/api/v1
 
 paths:
-  /users/signup:
+  /user/signup:
     post:
       summary: Регистрация нового пользователя
       tags:
@@ -18,7 +18,7 @@ paths:
         content:
             application/json:
               schema:
-                $ref: '#/components/schemas/signupForm'
+                $ref: '#/components/schemas/signup_form'
         required: true
       responses:
         201:
@@ -26,16 +26,26 @@ paths:
           content:
             application/json:
               schema:
-                properties: 
-                  status:
-                    type: string
-                    example: 'success'
-                  token:
-                    type: string
-                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZWQ0NDJkNTM4ZjliYTJiMDA2ZGVmNiIsImlhdCI6MTY0MjkzOTQ0MCwiZXhwIjoxNjUwNzE1NDQwfQ.WIIJipOGDO2omBcHmCjfj2LQpSr5ZubD6-2ecKOzzLU'
-                  data:
-                    type: object
-                    properties:
-                      user:
-                        $ref: "../resourses"
+                $ref: '#/components/schemas/signup_201'
         
+        400: 
+          description: Заполнены не все поля
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/empty_fields_400'        
+                
+        409: 
+          description: Пользователь с данным Email уже существует
+          content:
+            aplication/json:
+              schema:
+                $ref: '#/components/schemas/dublicate_email_409'
+
+components: 
+  schemas:
+    signup_form:
+      $ref: './auth.yml/#components/schemas/signup_form'
+    
+    signup_201:
+      $ref: './auth.yml#/signup_201'
