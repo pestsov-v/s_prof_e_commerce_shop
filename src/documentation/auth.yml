@@ -9,11 +9,11 @@ servers:
   - url: http://localhost:4000/api/v1
 
 paths:
-  /user/signup:
+  /signup:
     post:
       summary: Регистрация нового пользователя
       tags:
-        - authentification
+        - Авторизация
       requestBody:
         content:
             application/json:
@@ -33,18 +33,48 @@ paths:
           content:
             aplication/json:
               schema:
-                $ref: '#/components/schemas/empty_fields_400'        
+                $ref: '#/components/schemas/signup_emptyFields_400'        
                 
         409: 
           description: Пользователь с данным Email уже существует
           content:
             aplication/json:
               schema:
-                $ref: '#/components/schemas/dublicate_email_409'
+                $ref: '#/components/schemas/signup_dublicateEmail_409'
+  /login:
+    post:
+      summary: Авторизация пользователя на сайте
+      tags:
+        - Авторизация
+      requestBody:
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/login_form'
+        required: true
+      responses:
+        200:
+          description: Пользователь успешно авторизировался на сайте
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/login_200'
+        400:
+          description: Пользователь не ввёл или почту или пароль
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/login_notFound_400'
+                
+        403:
+          description: Пользователь ввёл неправильную почту или пароль
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/login_incorrectPaswword_403'
 
 components: 
   schemas:
-  
     signup_form:
       type: object
       properties:
@@ -102,11 +132,11 @@ components:
                 role:
                   type: string
                   example: "client"
-                baslet:
+                basket:
                   type: object
                   properties:
                     items:
-                      type: array
+                      type: string
                       example: []
                 active:
                   type: string
@@ -115,7 +145,7 @@ components:
                   type: string
                   example: 625ef72c962f1a40bc9e2742
     
-    empty_fields_400:
+    signup_emptyFields_400:
       type: object
       properties:
         status: 
@@ -142,7 +172,7 @@ components:
             type: string
             example: Error Заполнены не все обязательные поля. Пожалуйста введите Ваш email,...
     
-    dublicate_email_409:
+    signup_dublicateEmail_409:
       type: object
       properties:
         status: 
@@ -168,3 +198,117 @@ components:
           items:
             type: string
             example: Error Пользователь с данным Email уже существует,...
+            
+    login_form:
+      type: object
+      properties:
+        email:
+          type: string
+          example: vladislav.pestsov@gmail.com
+        password:
+          type: string
+          example: 12345678
+          
+    login_200:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        token: 
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmNzJjOTYyZjFhNDBiYzllMjc0MiIsImlhdCI6MTY1MDM5MDgyOSwiZXhwIjoxNjU4MTY2ODI5fQ.rMXPS_9s7_euQ6i8LJ_w0ptxUEYffZvDsh2a5n9LNdk
+        data:
+          type: object
+          properties:
+            user:
+              type: object
+              properties:
+                basket:
+                    type: object
+                    properties:
+                      items:
+                        type: string
+                        example: []
+                _id:
+                  type: string
+                  example: 625ef72c962f1a40bc9e2742
+                firstName: 
+                  type: string
+                  example: Vladislav
+                surnameName: 
+                  type: string
+                  example: Vadimovich
+                lastName: 
+                  type: string
+                  example: Pestsov
+                email:
+                  type: string
+                  example: vladislav.pestsov@gmail.com
+                photo:
+                  type: string
+                  example: "default.jpg"
+                active:
+                  type: string
+                  example: true
+                role:
+                  type: string
+                  example: "client"
+                __v:
+                  type: number
+                  default: 0
+    
+    login_notFound_400:
+      type: object
+      properties:
+        status: 
+          type: string
+          example: fail
+        error:
+          type: object
+          properties:
+            statusCode: 
+              type: integer
+              example: 400
+            status: 
+              type: string
+              example: fail
+            isOperational: 
+              type: boolean
+              example: true
+        message:
+          type: string
+          example: Вы не указали почту или пароль
+        stack:
+          type: array
+          items:
+            type: string
+            example: Error Вы не указали почту или пароль
+        
+                  
+    login_incorrectPaswword_403:
+      type: object
+      properties:
+        status: 
+          type: string
+          example: fail
+        error:
+          type: object
+          properties:
+            statusCode: 
+              type: integer
+              example: 403
+            status: 
+              type: string
+              example: fail
+            isOperational: 
+              type: boolean
+              example: true
+        message:
+          type: string
+          example: Неверная почта или пароль
+        stack:
+          type: array
+          items:
+            type: string
+            example: Error Неверная почта или пароль
