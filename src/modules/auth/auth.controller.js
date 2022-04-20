@@ -9,7 +9,7 @@ class AuthController {
       const newUser = await AuthService.createUser(req.body);
 
       const url = `${req.protocol}://${req.get("host")}/api/v1/login`;
-      await new Email(newUser, url).sendWelcome();
+      // await new Email(newUser, url).sendWelcome();
 
       AuthHelper.createSendToken(newUser, 201, req, res);
     } catch (e) {

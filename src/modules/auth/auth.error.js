@@ -2,6 +2,14 @@ const BaseError = require("../../core/base/base.error");
 const {
   notFoundException,
   incorrectPasswordException,
+  notLogginException,
+  loggedAgainException,
+  incorrectTokenException,
+  badTokenException,
+  hasNotRuleException,
+  notUserException,
+  duplicateEmailException,
+  serverErrorException,
 } = require("./auth.exception");
 
 class AuthError extends BaseError {
@@ -12,7 +20,7 @@ class AuthError extends BaseError {
   emptyFields(err) {
     const errors = Object.values(err.errors).map((el) => el.message);
     const message = `Заполнены не все обязательные поля. ${errors.join(". ")}`;
-    return new BaseError(message, 400);
+    return new AuthError(message, 400);
   }
 
   notFound() {
@@ -24,15 +32,15 @@ class AuthError extends BaseError {
 
   notLoggin() {
     return new AuthError(
-      "Вы не залогинились! Пожалуйста ввойдите в вашу учётную запись",
-      401
+      notLogginException.message,
+      notLogginException.statusCode
     );
   }
 
   loggedAgain() {
     return new AuthError(
-      "Пользователь недавно изменил пароль. Пожалуйста ввойдите ещё раз",
-      401
+      loggedAgainException.message,
+      loggedAgainException.statusCode
     );
   }
 
@@ -45,37 +53,43 @@ class AuthError extends BaseError {
 
   incorrectToken() {
     return new AuthError(
-      "Токен, который Вам принадлежит, больше не существует",
-      403
+      incorrectTokenException.message,
+      incorrectTokenException.statusCode
     );
   }
 
   badToken() {
-    return new AuthError("Неверный токен или его срок годности истёк", 403);
+    return new AuthError(
+      badTokenException.message,
+      badTokenException.statusCode
+    );
   }
 
   hasNotRule() {
     return new AuthError(
-      "Вы не владеете достаточными правами для совершения подобных действий",
-      403
+      hasNotRuleException.message,
+      hasNotRuleException.statusCode
     );
   }
 
   notUser() {
     return new AuthError(
-      "Не существует пользователя с данным email адресом",
-      404
+      notUserException.message,
+      notFoundException.statusCode
     );
   }
 
   duplicateEmail() {
-    return new AuthError("Пользователь с данным Email уже существует", 409);
+    return new AuthError(
+      duplicateEmailException.message,
+      duplicateEmailException.statusCode
+    );
   }
 
   serverError() {
     return new AuthError(
-      "При отправке сообщения произошла ошибка. Пожалуйста попробуйтe позже",
-      500
+      serverErrorException.message,
+      serverErrorException.statusCode
     );
   }
 }

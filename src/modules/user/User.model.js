@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
+    required: [true, "Пожалуйста введите Ваше имя"],
   },
   surname_name: {
     type: String,
@@ -26,12 +27,19 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["user", "client", "manager", "moderator", "admin"],
+    default: "client",
   },
   password: {
     type: String,
     required: [true, "Пожалуйста введите Ваш пароль"],
-    minlength: 8,
+    minlength: [8, "Пароль должен состоять минимум с 8 символов"],
     select: false,
+    validate: {
+      validator: function (el) {
+        return el === this.passwordConfirm;
+      },
+      message: "Пароли не совпадают",
+    },
   },
   passwordConfirm: {
     type: String,
