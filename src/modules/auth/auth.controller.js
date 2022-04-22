@@ -67,6 +67,8 @@ class AuthController {
         "host"
       )}/api/v1/password/${resetToken}`;
       await new Email(user, resetUrl).sendPasswordReset();
+      console.log("user: ", user);
+      console.log("resetUrl: ", resetUrl);
 
       res.status(200).json({
         status: "success",
@@ -76,7 +78,6 @@ class AuthController {
       user.passwordResetToken = undefined;
       user.passwordResetExpires = undefined;
       await user.save({ validateBeforeSave: false });
-
       return next(AuthError.serverError());
     }
   }

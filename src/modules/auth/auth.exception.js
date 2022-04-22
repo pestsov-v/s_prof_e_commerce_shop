@@ -47,5 +47,5 @@ exports.duplicateEmailException = {
 exports.serverErrorException = {
   message:
     "При отправке сообщения произошла ошибка. Пожалуйста попробуйтe позже",
-  statusCode: 404,
+  statusCode: 500,
 };

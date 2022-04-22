@@ -73,10 +73,7 @@ class AuthError extends BaseError {
   }
 
   notUser() {
-    return new AuthError(
-      notUserException.message,
-      notFoundException.statusCode
-    );
+    return new AuthError(notUserException.message, notUserException.statusCode);
   }
 
   duplicateEmail() {
