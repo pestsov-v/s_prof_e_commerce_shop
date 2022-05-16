@@ -4,7 +4,7 @@
   "description": "E-commerce shop to kitchen food machines",
   "main": "init.js",
   "scripts": {
-    "dev:server": "env-cmd -f ./config/test.env nodemon ./src/init.js",
+    "dev": "nodemon ./src/init.js",
     "jest:test": "env-cmd -f ./config/test.env jest --watchAll"
   },
   "repository": {
