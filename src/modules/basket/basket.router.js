@@ -1,6 +1,6 @@
 const express = require("express");
 const basketPath = require("./basket.routes.path");
-const BasketController = require("./Basket.controller");
+const BasketController = require("./basket.controller");
 const basketRouter = express.Router();
 
 basketRouter.get(basketPath.baskets, BasketController.getBasket);

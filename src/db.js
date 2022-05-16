@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect("mongodb://localhost:27017/s-prof", {
   useNewUrlParser: true,
 });
 

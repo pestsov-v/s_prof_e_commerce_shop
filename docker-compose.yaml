@@ -1,21 +1,21 @@
 version: '3'
 services:
-  top.api:
-    image: top-api:latest
-    container_name: top-api
+  s-prof-e-commerce-shop:
+    image: s-prof-e-commerce-shop:latest
+    container_name: s-prof-e-commerce-shop
     restart: always
     ports: 
       - 4000:4000
     volumes:
-      - ./.env:/opt/app/.env
+      - ./.env:/app/.env
+    environment:
+      - DATABASE=${DATABASE?:}
+  
   mongo:
     image: mongo
-    container_name: mongo
+    container_name: mongo-s-prof-e-commerce-shop
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
       - './dockervolume/mongodb:/data/db'
     ports:
-      - 27019:27019
+      - 27017:27017

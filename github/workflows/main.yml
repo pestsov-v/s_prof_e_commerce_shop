@@ -1,0 +1,19 @@
+name: Publish Docker
+
+on:
+  push: 
+    branches: [main]
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Publish to registry
+        uses: elgohr/Publish-Docker-Github-Action@v4
+        with:
+          registry: docker.pkg.github.com
+          name: docker.pkg.ghttps://github.com/pestsov-v/s_prof_e_commerce_shop
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          tags: "develop"
