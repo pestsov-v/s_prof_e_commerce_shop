@@ -13,7 +13,7 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           registry: docker.pkg.github.com
-          name: docker.pkg.github.com/pestsov-v/s_prof_e_commerce_shop/s_prof_e_commerce_shop
+          name: docker.pkg.github.com/pestsov-v/s_prof_e_commerce_shop/s-prof-e-commerce-shop
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           tags: "develop"
