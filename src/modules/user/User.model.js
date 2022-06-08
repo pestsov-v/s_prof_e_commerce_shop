@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const role = require("../../core/role.enum");
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -26,8 +27,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["user", "client", "manager", "moderator", "admin"],
-    default: "client",
+    enum: [role.user, role.client, role.manager, role.moderator, role.admin],
+    default: role.client,
   },
   password: {
     type: String,

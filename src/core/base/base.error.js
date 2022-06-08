@@ -1,9 +1,11 @@
+const status = require("../status.enum");
+
 class BaseError extends Error {
   constructor(message, statusCode) {
     super(message);
 
     this.statusCode = statusCode;
-    this.status = `${statusCode}`.startsWith("4") ? "fail" : "error";
+    this.status = `${statusCode}`.startsWith("4") ? status.fail : status.error;
     this.isOperational = true;
 
     Error.captureStackTrace(this, this.constructor);

@@ -1,5 +1,6 @@
 const User = require("./User.model");
 const BaseService = require("../../core/base/base.service");
+const role = require("../../core/role.enum");
 
 class UserService extends BaseService {
   async deactivatedUser(id) {
@@ -16,7 +17,7 @@ class UserService extends BaseService {
 
   async changedUserToManager(id) {
     return await User.findByIdAndUpdate(id, {
-      role: "manager",
+      role: role.manager,
     });
   }
 }

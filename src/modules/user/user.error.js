@@ -1,4 +1,10 @@
 const BaseError = require("../../core/base/base.error");
+const statusCode = require("../../core/statusCode.enum");
+
+const {
+  NOT_FOUND_EMAIL_MESSAGE,
+  NOT_FOUND_USER_MESSAGE,
+} = require("./user.constants");
 
 class UserError extends BaseError {
   constructor(message, statusCode) {
@@ -6,14 +12,11 @@ class UserError extends BaseError {
   }
 
   notFoundUser() {
-    return new UserError("Такого пользователя не существует", 404);
+    return new UserError(NOT_FOUND_USER_MESSAGE, statusCode.notFound);
   }
 
   notFoundEmail() {
-    return new UserError(
-      "Не существует пользователя с данным email адресом",
-      404
-    );
+    return new UserError(NOT_FOUND_EMAIL_MESSAGE, statusCode.notFound);
   }
 }
 

@@ -1,7 +1,9 @@
+const status = require("../../core/status.enum");
+
 class UserHelper {
   responseObj(user, statusCode, message, res) {
     return res.status(statusCode).json({
-      status: "sucess",
+      status: status.success,
       message: message,
       data: {
         email: user.email,

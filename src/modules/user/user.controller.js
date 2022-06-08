@@ -9,6 +9,7 @@ const {
   reactivatedMessage,
   changeRoleMessage,
 } = require("./user.constants");
+const statusCode = require("../../core/statusCode.enum");
 
 class UserController extends BaseController {
   constructor() {
@@ -23,19 +24,25 @@ class UserController extends BaseController {
   async deactivatedUser(req, res, next) {
     const user = await UserService.deactivatedUser(req.params.id);
     if (user === null) return next(UserError.notFoundUser());
-    return UserHelper.responseObj(user, 200, deactivatedMessage, res);
+    return UserHelper.responseObj(user, statusCode.ok, deactivatedMessage, res);
   }
 
   async reactivatedUser(req, res, next) {
     const user = await UserService.reactivatedUser(req.params.id);
     if (user === null) return next(UserError.notFoundUser());
-    return UserHelper.responseObj(user, 200, reactivatedMessage, res);
+    return UserHelper.responseObj(user, statusCode.ok, reactivatedMessage, res);
   }
 
   async changeRoleToManager(req, res, next) {
     const user = await UserService.changedUserToManager(req.params.id);
     if (user === null) return UserError.notFoundUser();
-    return UserHelper.responseObj(user, 200, changeRoleMessage(user.role), res);
+
+    return UserHelper.responseObj(
+      user,
+      statusCode.ok,
+      changeRoleMessage(user.role),
+      res
+    );
   }
 }
 

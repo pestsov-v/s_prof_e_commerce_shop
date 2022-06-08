@@ -1,9 +1,10 @@
 const express = require("express");
+const role = require("../../core/role.enum");
 const AuthMiddleware = require("../auth/auth.middleware");
 const UserController = require("./user.controller");
 const userPath = require("./user.router.path");
 
-const adminRules = AuthMiddleware.restrictTo("admin");
+const adminRules = AuthMiddleware.restrictTo(role.admin);
 
 const userRouter = express.Router();
 

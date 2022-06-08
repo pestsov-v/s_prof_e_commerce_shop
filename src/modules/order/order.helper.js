@@ -1,3 +1,5 @@
+const status = require("../../core/status.enum");
+
 class OrderHelper {
   getProducts(user) {
     const products = user.basket.items.map((i) => ({
@@ -27,7 +29,7 @@ class OrderHelper {
 
   responseObject(order, statusCode, res) {
     return res.status(statusCode).json({
-      status: "success",
+      status: status.success,
       data: {
         order: order,
       },

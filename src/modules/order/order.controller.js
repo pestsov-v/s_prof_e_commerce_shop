@@ -1,5 +1,7 @@
-const BaseController = require("../../core/base/base.controller");
+const statusCode = require("../../core/statusCode.enum");
 const Order = require("./Order.model");
+
+const BaseController = require("../../core/base/base.controller");
 const OrderHelper = require("./order.helper");
 const OrderService = require("./order.service");
 
@@ -24,7 +26,7 @@ class OrderController extends BaseController {
     const order = OrderService.newOrder(user, products);
 
     OrderHelper.sendOrder(order, req.user);
-    OrderHelper.responseObject(order, 200, res);
+    OrderHelper.responseObject(order, statusCode.ok, res);
   }
 }
 
