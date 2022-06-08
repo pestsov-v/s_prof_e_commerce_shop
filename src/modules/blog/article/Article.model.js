@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/model.enum");
 
 const articleSchema = new mongoose.Schema({
   title: {
@@ -16,11 +17,11 @@ const articleSchema = new mongoose.Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "BlogCategory",
+    ref: model.blogCategory,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: model.user,
   },
   createdAt: {
     type: Date,
@@ -28,5 +29,5 @@ const articleSchema = new mongoose.Schema({
   },
 });
 
-const Article = mongoose.model("Article", articleSchema);
+const Article = mongoose.model(model.article, articleSchema);
 module.exports = Article;

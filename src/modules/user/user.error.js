@@ -4,7 +4,7 @@ const statusCode = require("../../core/statusCode.enum");
 const {
   NOT_FOUND_EMAIL_MESSAGE,
   NOT_FOUND_USER_MESSAGE,
-} = require("./user.constants");
+} = require("./constants/user.constants");
 
 class UserError extends BaseError {
   constructor(message, statusCode) {

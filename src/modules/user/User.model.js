@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const role = require("../../core/role.enum");
+const model = require("../../core/model.enum");
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -60,7 +61,7 @@ const userSchema = new mongoose.Schema({
         },
         productId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
+          ref: model.product,
         },
       },
     ],
@@ -114,5 +115,5 @@ userSchema.methods.clearBasket = function () {
   return this.save();
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model(model.user, userSchema);
 module.exports = User;

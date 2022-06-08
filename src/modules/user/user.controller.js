@@ -8,7 +8,7 @@ const {
   deactivatedMessage,
   reactivatedMessage,
   changeRoleMessage,
-} = require("./user.constants");
+} = require("./constants/user.constants");
 const statusCode = require("../../core/statusCode.enum");
 
 class UserController extends BaseController {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/model.enum");
 
 const blogCategorySchema = new mongoose.Schema({
   type: {
@@ -9,10 +10,10 @@ const blogCategorySchema = new mongoose.Schema({
   articles: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Article",
+      ref: model.article,
     },
   ],
 });
 
-const BlogCategory = mongoose.model("BlogCategory", blogCategorySchema);
+const BlogCategory = mongoose.model(model.blogCategory, blogCategorySchema);
 module.exports = BlogCategory;

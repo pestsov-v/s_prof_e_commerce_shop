@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/model.enum");
 
 const commentSchema = new mongoose.Schema({
   text: {
@@ -7,13 +8,13 @@ const commentSchema = new mongoose.Schema({
   },
   article: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Article",
+    ref: model.article,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: model.user,
   },
 });
 
-const Comment = mongoose.model("Comment", commentSchema);
+const Comment = mongoose.model(model.comment, commentSchema);
 module.exports = Comment;

@@ -1,13 +1,21 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/model.enum");
+const phase = require("./enum/phase.enum");
+const voltage = require("./enum/voltage.enum");
 
 const electricalConnectionsShema = new mongoose.Schema({
   number_phases: {
     type: Number,
-    enum: [1, 3],
+    enum: [phase.single, phase.three],
   },
   voltage: {
     type: Number,
-    enum: [220, 230, 380, 400],
+    enum: [
+      voltage.operatingSingleVoltage,
+      voltage.openSingleVoltage,
+      voltage.operatingThreeVoltage,
+      voltage.openThreeVoltage,
+    ],
   },
   power: {
     type: Number,
@@ -16,7 +24,7 @@ const electricalConnectionsShema = new mongoose.Schema({
 });
 
 const Electrical_connections = mongoose.model(
-  "Electrical_connections",
+  model.electricalConnect,
   electricalConnectionsShema
 );
 module.exports = Electrical_connections;
