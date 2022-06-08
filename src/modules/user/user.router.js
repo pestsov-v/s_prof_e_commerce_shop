@@ -33,4 +33,11 @@ userRouter.patch(
   UserController.reactivatedUser
 );
 
+userRouter.patch(
+  userPath.changeRole,
+  AuthMiddleware.protect,
+  adminRules,
+  UserController.changeRoleToManager
+);
+
 module.exports = userRouter;

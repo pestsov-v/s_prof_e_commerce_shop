@@ -1,51 +1,64 @@
+const statusCode = require("../../core/statusCode.enum");
+
+const {
+  NOT_FOUND_EXCEPTION_MESSAGE,
+  NOT_LOGGIN_EXCEPTION_MESSAGE,
+  LOGGED_AGAIN_EXCEPTION_MESSAGE,
+  INCORRECT_PASSWORD_EXCEPTION,
+  INCORRECT_TOKEN_EXCEPTION_MESSAGE,
+  BAD_TOKEN_EXCEPTION_MESSAGE,
+  HAS_NOT_RULE_EXCEPTION_MESSAGE,
+  NOT_USER_EXCEPTION_MESSAGE,
+  DUBPLICATE_EMAIL_EXCEPTION_MESSAGE,
+  SERVER_ERROR_EXCEPTION_MESSAGE,
+} = require("./auth.constants");
+
 exports.notFoundException = {
-  message: "Вы не указали почту или пароль",
-  statusCode: 400,
+  message: NOT_FOUND_EXCEPTION_MESSAGE,
+  statusCode: statusCode.badRequest,
 };
 
 exports.notLogginException = {
-  message: "Вы не залогинились! Пожалуйста ввойдите в вашу учётную запись",
-  statusCode: 401,
+  message: NOT_LOGGIN_EXCEPTION_MESSAGE,
+  statusCode: statusCode.unauthorized,
 };
 
 exports.loggedAgainException = {
-  message: "Пользователь недавно изменил пароль. Пожалуйста ввойдите ещё ра",
-  statusCode: 401,
+  message: LOGGED_AGAIN_EXCEPTION_MESSAGE,
+  statusCode: statusCode.unauthorized,
 };
 
 exports.incorrectPasswordException = {
-  message: "Неверная почта или пароль",
-  statusCode: 403,
+  message: INCORRECT_PASSWORD_EXCEPTION,
+  statusCode: statusCode.forbidden,
 };
 
 exports.incorrectTokenException = {
-  message: "Токен, который Вам принадлежит, больше не существует",
-  statusCode: 403,
+  message: INCORRECT_TOKEN_EXCEPTION_MESSAGE,
+  statusCode: statusCode.forbidden,
 };
 
 exports.badTokenException = {
-  message: "Неверный токен или его срок годности истёк",
-  statusCode: 403,
+  message: BAD_TOKEN_EXCEPTION_MESSAGE,
+  statusCode: statusCode.forbidden,
 };
 
 exports.hasNotRuleException = {
-  message:
-    "Вы не владеете достаточными правами для совершения подобных действий",
-  statusCode: 403,
+  message: HAS_NOT_RULE_EXCEPTION_MESSAGE,
+  statusCode: statusCode.forbidden,
 };
 
 exports.notUserException = {
-  message: "Не существует пользователя с данным email адресом",
-  statusCode: 404,
+  message: NOT_USER_EXCEPTION_MESSAGE,
+  statusCode: statusCode.notFound,
 };
 
 exports.duplicateEmailException = {
-  message: "Пользователь с данным Email уже существует",
-  statusCode: 409,
+  message: DUBPLICATE_EMAIL_EXCEPTION_MESSAGE,
+  statusCode: statusCode.conflict,
 };
 
 exports.serverErrorException = {
-  message:
-    "При отправке сообщения произошла ошибка. Пожалуйста попробуйтe позже",
-  statusCode: 404,
+  message: SERVER_ERROR_EXCEPTION_MESSAGE,
+  statusCode: statusCode.serverError,
 };

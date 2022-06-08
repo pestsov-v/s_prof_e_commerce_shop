@@ -1,4 +1,6 @@
 const BaseError = require("../../core/base/base.error");
+const statusCode = require("../../core/statusCode.enum");
+
 const {
   notFoundException,
   incorrectPasswordException,
@@ -20,7 +22,7 @@ class AuthError extends BaseError {
   emptyFields(err) {
     const errors = Object.values(err.errors).map((el) => el.message);
     const message = `Заполнены не все обязательные поля. ${errors.join(". ")}`;
-    return new AuthError(message, 400);
+    return new AuthError(message, statusCode.badRequest);
   }
 
   notFound() {

@@ -26,7 +26,7 @@ class BasketService {
   async getBasket(id) {
     const user = await this.findUser(id);
     const userBasket = await user.populate("basket.items.productId");
-    return BaskerHelper.mapBasketItems(userBasket.basket);
+    return BasketHelper.mapBasketItems(userBasket.basket);
   }
 }
 

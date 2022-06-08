@@ -2,8 +2,11 @@ const BaseHelper = require("./base.helper");
 const BaseError = require("./base.error");
 const BaseService = require("./base.service");
 
+const status = require("../status.enum");
+const statusCode = require("../statusCode.enum");
+
 class BaseController {
-  static getAll(Model) {
+  getAll(Model) {
     return async (req, res) => {
       try {
         let filter = {};
@@ -16,83 +19,52 @@ class BaseController {
           .limitFields()
           .paginate();
 
-        const documents = await features.query;
-
-        res.status(200).json({
-          status: "success",
-          results: documents.length,
-          data: {
-            data: documents,
-          },
-        });
+        const doc = await features.query;
+        return BaseHelper.resultObj(statusCode.ok, status.success, doc, res);
       } catch (e) {
         console.log(e);
       }
     };
   }
 
-  static getOne(Model, popOptions) {
+  getOne(Model, popOptions) {
     return async (req, res, next) => {
       let query = await BaseService.getModel(Model, req.params.id);
 
       if (popOptions) query = query.populate(popOptions);
-      const document = await query;
+      const doc = await query;
+      if (!doc) return next(BaseError.docNotFound());
 
-      if (!document) return next(BaseError.docNotFound());
-      res.json({
-        status: "success",
-        data: {
-          data: document,
-        },
-      });
+      return BaseHelper.resultObj(statusCode.ok, status.success, doc, res);
     };
   }
 
-  static createOne(Model) {
+  createOne(Model) {
     return async (req, res, next) => {
-      const document = await BaseService.createModel(Model, req.body);
+      const doc = await BaseService.createModel(Model, req.body);
 
-      if (!document) return next(BaseError.docNotFound());
-
-      res.status(201).json({
-        status: "success",
-        data: {
-          data: document,
-        },
-      });
+      if (!doc) return next(BaseError.docNotFound());
+      return BaseHelper.resultObj(statusCode.created, status.success, doc, res);
     };
   }
 
-  static updateOne(Model) {
+  updateOne(Model) {
     return async (req, res, next) => {
       const { id } = req.params;
       const { body } = req;
-      const document = await BaseService.updateModel(Model, id, body);
+      const doс = await BaseService.updateModel(Model, id, body);
+      if (!doс) return next(BaseError.docNotFound());
 
-      if (!document) return next(BaseError.docNotFound());
-
-      res.status(200).json({
-        status: "success",
-        data: {
-          data: document,
-        },
-      });
+      return BaseHelper.resultObj(statusCode.ok, status.success, doс, res);
     };
   }
 
-  static deleteOne(Model) {
+  deleteOne(Model) {
     return async (req, res, next) => {
-      const document = await BaseService.deleteModel(Model, req.params.id);
+      const doc = await BaseService.deleteModel(Model, req.params.id);
+      if (!doc) return next(next(BaseError.docNotFound()));
 
-      if (!document) return next(next(BaseError.docNotFound()));
-
-      res.status(200).json({
-        status: "success",
-        message: "Удаление прошло успешно",
-        data: {
-          data: null,
-        },
-      });
+      return BaseHelper.resultObj(statusCode.ok, status.success, doc, res);
     };
   }
 }

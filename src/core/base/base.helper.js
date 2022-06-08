@@ -48,6 +48,16 @@ class BaseHelper {
 
     return this;
   }
+
+  static resultObj(statusCode, statusMessage, documents, res) {
+    return res.status(statusCode).json({
+      status: statusMessage,
+      results: documents.length,
+      data: {
+        data: documents,
+      },
+    });
+  }
 }
 
 module.exports = BaseHelper;

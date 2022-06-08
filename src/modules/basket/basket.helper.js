@@ -1,3 +1,5 @@
+const success = require("../../core/status.enum");
+
 class BasketHelper {
   addToBasket(product, user) {
     const items = [...user.basket.items];
@@ -50,7 +52,7 @@ class BasketHelper {
 
   responseObjWithPrice(basket, statusCode, res) {
     return res.status(statusCode).json({
-      status: "success",
+      status: success.success,
       basket,
       price: this.computePrice(basket),
     });
@@ -58,7 +60,7 @@ class BasketHelper {
 
   responseObject(basket, statusCode, res) {
     return res.status(statusCode).json({
-      status: "success",
+      status: success.success,
       basket,
     });
   }

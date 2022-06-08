@@ -2,11 +2,14 @@ const BaseController = require("../../core/base/base.controller");
 const Order = require("./Order.model");
 const OrderHelper = require("./order.helper");
 const OrderService = require("./order.service");
-const User = require("../user/User.model");
 
-class OrderController {
-  getOrder = BaseController.getOne(Order);
-  deleteOrder = BaseController.deleteOne(Order);
+class OrderController extends BaseController {
+  constructor() {
+    super();
+  }
+
+  getOrder = super.getOne(Order);
+  deleteOrder = super.deleteOne(Order);
 
   async getOrders(req, res) {
     const orders = await OrderService.getOrder(req.user._id);

@@ -13,6 +13,12 @@ class UserService extends BaseService {
       active: true,
     });
   }
+
+  async changedUserToManager(id) {
+    return await User.findByIdAndUpdate(id, {
+      role: "manager",
+    });
+  }
 }
 
 module.exports = new UserService();

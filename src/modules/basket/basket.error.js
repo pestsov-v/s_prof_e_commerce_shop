@@ -1,4 +1,6 @@
 const BaseError = require("../../core/base/base.error");
+const statusCode = require("../../core/statusCode.enum");
+const { NOT_UNAUTHORIZED_MESSAGE } = require("./basket.constants");
 
 class BasketError extends BaseError {
   constructor(message, statusCode) {
@@ -6,7 +8,7 @@ class BasketError extends BaseError {
   }
 
   hasNotSession() {
-    return new BasketError("Вы не авторизировались на сайте", 403);
+    return new BasketError(NOT_UNAUTHORIZED_MESSAGE, statusCode.forbidden);
   }
 }
 

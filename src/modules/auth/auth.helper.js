@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { promisify } = require("util");
+const status = require("../../core/status.enum");
 
 const signToken = (id) => {
   return (token = jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -32,7 +33,7 @@ class AuthHelper {
     user.password = undefined;
 
     return res.status(statusCode).json({
-      status: "success",
+      status: status.success,
       token,
       data: {
         user,

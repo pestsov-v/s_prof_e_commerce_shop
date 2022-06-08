@@ -11,7 +11,6 @@ class AuthMiddleware {
     }
 
     if (!token) return next(AuthError.notLoggin());
-
     const decoded = await AuthHelper.decoded(token);
     const currentUser = await AuthService.decodedCurrentUser(decoded.id);
 
