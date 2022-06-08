@@ -4,21 +4,30 @@ const crypto = require("crypto");
 const role = require("../../core/enums/role.enum");
 const model = require("../../core/enums/model.enum");
 
+const {
+  FIRST_NAME_VALIDATE_MESSAGE,
+  LAST_NAME_VALIDATE_MESSAGE,
+  EMAIL_VALIDATE_MESSAGE,
+  PASSWORD_VALIDATE_MESSAGE,
+  PASSWORD_SHORT_VALIDATE_MESSAGE,
+  PASSWORD_NOT_MATCH_MESSAGE,
+} = require("./constants/validate.constants");
+
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
-    required: [true, "Пожалуйста введите Ваше имя"],
+    required: [true, FIRST_NAME_VALIDATE_MESSAGE],
   },
   surname_name: {
     type: String,
   },
   last_name: {
     type: String,
-    required: [true, "Пожалуйста введите Вашу фамилию"],
+    required: [true, LAST_NAME_VALIDATE_MESSAGE],
   },
   email: {
     type: String,
-    required: [true, "Пожалуйста введите Ваш email"],
+    required: [true, EMAIL_VALIDATE_MESSAGE],
     unique: true,
     lowercase: true,
   },
@@ -33,14 +42,14 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Пожалуйста введите Ваш пароль"],
-    minlength: [8, "Пароль должен состоять минимум с 8 символов"],
+    required: [true, PASSWORD_VALIDATE_MESSAGE],
+    minlength: [8, PASSWORD_SHORT_VALIDATE_MESSAGE],
     select: false,
     validate: {
       validator: function (el) {
         return el === this.passwordConfirm;
       },
-      message: "Пароли не совпадают",
+      message: PASSWORD_NOT_MATCH_MESSAGE,
     },
   },
   passwordConfirm: {
@@ -50,7 +59,7 @@ const userSchema = new mongoose.Schema({
       validator: function (el) {
         return el === this.password;
       },
-      message: "Пароли не совпадают",
+      message: PASSWORD_NOT_MATCH_MESSAGE,
     },
   },
   basket: {
