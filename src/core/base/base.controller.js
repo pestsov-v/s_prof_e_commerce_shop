@@ -2,8 +2,8 @@ const BaseHelper = require("./base.helper");
 const BaseError = require("./base.error");
 const BaseService = require("./base.service");
 
-const status = require("../status.enum");
-const statusCode = require("../statusCode.enum");
+const status = require("../enums/status.enum");
+const statusCode = require("../enums/statusCode.enum");
 
 class BaseController {
   getAll(Model) {

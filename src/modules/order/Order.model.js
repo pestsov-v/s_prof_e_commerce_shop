@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const model = require("../../core/enums/model.enum");
 
 const orderSchema = new mongoose.Schema({
   products: [
@@ -17,7 +18,7 @@ const orderSchema = new mongoose.Schema({
     name: String,
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: model.user,
       required: true,
     },
   },
@@ -27,5 +28,5 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model(model.order, orderSchema);
 module.exports = Order;

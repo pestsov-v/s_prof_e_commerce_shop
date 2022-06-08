@@ -1,4 +1,4 @@
-const success = require("../../core/status.enum");
+const success = require("../../core/enums/status.enum");
 
 class BasketHelper {
   addToBasket(product, user) {

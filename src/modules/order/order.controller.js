@@ -1,4 +1,4 @@
-const statusCode = require("../../core/statusCode.enum");
+const statusCode = require("../../core/enums/statusCode.enum");
 const Order = require("./Order.model");
 
 const BaseController = require("../../core/base/base.controller");

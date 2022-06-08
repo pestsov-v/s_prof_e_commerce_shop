@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/enums/model.enum");
 
 const formShema = new mongoose.Schema({
   form: {
@@ -8,5 +9,5 @@ const formShema = new mongoose.Schema({
   },
 });
 
-const Form = mongoose.model("Form", formShema);
+const Form = mongoose.model(model.form, formShema);
 module.exports = Form;

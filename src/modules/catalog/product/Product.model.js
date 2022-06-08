@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/enums/model.enum");
 
 const productShema = new mongoose.Schema({
   type: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Type",
+    ref: model.type,
   },
   form: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Form",
+    ref: model.form,
   },
   manufacturer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Manufacturer",
+    ref: model.manufacturer,
   },
   name: {
     type: String,
@@ -42,7 +43,7 @@ const productShema = new mongoose.Schema({
   },
   electrical_connections: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Electrical_connections",
+    ref: model.electricalConnect,
   },
   width: {
     type: Number,
@@ -83,6 +84,6 @@ productShema.method("toClient", function () {
   return product;
 });
 
-const Product = mongoose.model("Product", productShema);
+const Product = mongoose.model(model.product, productShema);
 
 module.exports = Product;

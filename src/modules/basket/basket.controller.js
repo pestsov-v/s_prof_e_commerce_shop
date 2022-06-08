@@ -1,4 +1,4 @@
-const statusCode = require("../../core/statusCode.enum");
+const statusCode = require("../../core/enums/statusCode.enum");
 
 const BasketError = require("./basket.error");
 const BaskerHelper = require("./basket.helper");

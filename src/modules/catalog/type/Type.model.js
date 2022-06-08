@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/enums/model.enum");
 
 const typeShema = new mongoose.Schema({
   type: {
@@ -8,5 +9,5 @@ const typeShema = new mongoose.Schema({
   },
 });
 
-const Type = mongoose.model("Type", typeShema);
+const Type = mongoose.model(model.type, typeShema);
 module.exports = Type;

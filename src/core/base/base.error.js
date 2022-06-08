@@ -1,4 +1,4 @@
-const status = require("../status.enum");
+const status = require("../enums/status.enum");
 
 class BaseError extends Error {
   constructor(message, statusCode) {

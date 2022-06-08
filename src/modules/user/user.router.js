@@ -1,5 +1,5 @@
 const express = require("express");
-const role = require("../../core/role.enum");
+const role = require("../../core/enums/role.enum");
 const AuthMiddleware = require("../auth/auth.middleware");
 const UserController = require("./user.controller");
 const userPath = require("./user.router.path");

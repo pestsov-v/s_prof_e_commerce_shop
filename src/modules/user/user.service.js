@@ -1,6 +1,6 @@
 const User = require("./User.model");
 const BaseService = require("../../core/base/base.service");
-const role = require("../../core/role.enum");
+const role = require("../../core/enums/role.enum");
 
 class UserService extends BaseService {
   async deactivatedUser(id) {

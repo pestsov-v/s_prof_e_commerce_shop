@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const model = require("../../../core/enums/model.enum");
 
 const manufacturerShema = new mongoose.Schema({
   manufacturer: {
@@ -12,5 +13,5 @@ const manufacturerShema = new mongoose.Schema({
   },
 });
 
-const Manufacturer = mongoose.model("Manufacturer", manufacturerShema);
+const Manufacturer = mongoose.model(model.manufacturer, manufacturerShema);
 module.exports = Manufacturer;

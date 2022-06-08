@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const model = require("../../../core/model.enum");
+const model = require("../../../core/enums/model.enum");
 const phase = require("./enum/phase.enum");
 const voltage = require("./enum/voltage.enum");
 

@@ -1,4 +1,4 @@
-const status = require("../../core/status.enum");
+const status = require("../../core/enums/status.enum");
 
 class OrderHelper {
   getProducts(user) {

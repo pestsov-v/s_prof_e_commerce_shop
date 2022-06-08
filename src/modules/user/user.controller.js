@@ -1,3 +1,5 @@
+const statusCode = require("../../core/enums/statusCode.enum");
+
 const UserHelper = require("./user.helper");
 const UserError = require("./user.error");
 const UserService = require("./user.service");
@@ -9,7 +11,6 @@ const {
   reactivatedMessage,
   changeRoleMessage,
 } = require("./constants/user.constants");
-const statusCode = require("../../core/statusCode.enum");
 
 class UserController extends BaseController {
   constructor() {

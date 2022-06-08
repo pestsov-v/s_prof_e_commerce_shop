@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const role = require("../../core/role.enum");
-const model = require("../../core/model.enum");
+const role = require("../../core/enums/role.enum");
+const model = require("../../core/enums/model.enum");
 
 const userSchema = new mongoose.Schema({
   first_name: {

@@ -1,5 +1,5 @@
 const BaseError = require("../../core/base/base.error");
-const statusCode = require("../../core/statusCode.enum");
+const statusCode = require("../../core/enums/statusCode.enum");
 
 const {
   NOT_FOUND_EMAIL_MESSAGE,

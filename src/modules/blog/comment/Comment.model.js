@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const model = require("../../../core/model.enum");
+const model = require("../../../core/enums/model.enum");
 
 const commentSchema = new mongoose.Schema({
   text: {

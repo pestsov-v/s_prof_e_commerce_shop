@@ -1,4 +1,4 @@
-const statusCode = require("../../core/statusCode.enum");
+const statusCode = require("../../core/enums/statusCode.enum");
 
 const {
   NOT_FOUND_EXCEPTION_MESSAGE,
